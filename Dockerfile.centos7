@@ -1,0 +1,18 @@
+FROM centos:7
+MAINTAINER hfm.garden@gmail.com
+
+RUN yum -y -q install gcc rpmdevtools perl-App-cpanminus wget
+
+ENV OPENSSL_VERSION 1.0.2h
+
+RUN rpmdev-setuptree
+RUN wget -q "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz" -P /root/rpmbuild/SOURCES
+RUN tar xzf "/root/rpmbuild/SOURCES/openssl-${OPENSSL_VERSION}.tar.gz" -C /root/rpmbuild/SPECS --strip=1 --no-same-owner --no-same-permissions '*/openssl.spec'
+
+ADD patches/centos/openssl.spec.patch /root/rpmbuild/SPECS/openssl.spec.patch
+WORKDIR /root/rpmbuild/SPECS
+RUN patch -p0 < openssl.spec.patch
+
+RUN cpanm -q Perl4::CoreLibs
+
+RUN QA_RPATHS=$[ 0x0001 ] rpmbuild -ba openssl.spec

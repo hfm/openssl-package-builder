@@ -1,0 +1,31 @@
+--- openssl.spec.patch  2016-05-03 13:46:41.000000000 +0000
++++ openssl.spec        2016-06-21 17:33:19.479979434 +0000
+@@ -115,7 +115,7 @@
+ %doc CHANGES CHANGES.SSLeay LICENSE NEWS README
+
+ %attr(0755,root,root) /usr/bin/*
+-%attr(0755,root,root) /usr/lib/*.so*
++%attr(0755,root,root) /usr/lib64/*.so*
+ %attr(0755,root,root) %{openssldir}/misc/*
+ %attr(0644,root,root) /usr/man/man[157]/*
+
+@@ -128,8 +128,8 @@
+ %defattr(0644,root,root,0755)
+ %doc CHANGES CHANGES.SSLeay LICENSE NEWS README
+
+-%attr(0644,root,root) /usr/lib/*.a
+-%attr(0644,root,root) /usr/lib/pkgconfig/openssl.pc
++%attr(0644,root,root) /usr/lib64/*.a
++%attr(0644,root,root) /usr/lib64/pkgconfig/openssl.pc
+ %attr(0644,root,root) /usr/include/openssl/*
+ %attr(0644,root,root) /usr/man/man[3]/*
+
+@@ -148,7 +148,7 @@
+ * Sun Jun  6 2005 Richard Levitte <richard@levitte.org>
+ - Remove the incorrect installation of '%{openssldir}/lib'.
+ * Wed May  7 2003 Richard Levitte <richard@levitte.org>
+-- Add /usr/lib/pkgconfig/openssl.pc to the development section.
++- Add /usr/lib64/pkgconfig/openssl.pc to the development section.
+ * Thu Mar 22 2001 Richard Levitte <richard@levitte.org>
+ - Removed redundant subsection that re-installed libcrypto.a and libssl.a
+   as well.  Also remove RSAref stuff completely, since it's not needed

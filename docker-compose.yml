@@ -1,0 +1,6 @@
+centos7:
+  dockerfile: Dockerfile.centos7
+  build: .
+  command: sh -c 'cp -a /root/rpmbuild/RPMS/x86_64/openssl-*.rpm /tmp/'
+  volumes:
+    - .:/tmp:rw
